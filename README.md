@@ -6,7 +6,9 @@
 [![StyleCI](https://styleci.io/repos/38200433/shield?branch=master)](https://styleci.io/repos/38200433)
 [![Total Downloads](https://img.shields.io/packagist/dt/jeroennoten/Laravel-AdminLTE.svg?style=flat-square)](https://packagist.org/packages/jeroennoten/Laravel-AdminLTE)
 
-This package provides an easy way to quickly set up [AdminLTE v2](https://adminlte.io) with Laravel 6. It has no requirements and dependencies besides Laravel, so you can start building your admin panel immediately. The package just provides a Blade template that you can extend and advanced menu configuration possibilities. A replacement for the `make:auth` Artisan command that uses AdminLTE styled views instead of the default Laravel ones is also included.
+This package provides an easy way to quickly set up [AdminLTE v2](https://adminlte.io) with Laravel 10, 11, or 12. It has no requirements and dependencies besides Laravel, so you can start building your admin panel immediately. The package just provides a Blade template that you can extend and advanced menu configuration possibilities. A replacement for the `make:auth` Artisan command that uses AdminLTE styled views instead of the default Laravel ones is also included.
+
+> **Note**: This version has been updated to support Laravel 10+ and PHP 8.2+. For older Laravel versions, please use the original package versions.
 
 1. [Requirements](#1-requirements)
 2. [Installation](#2-installation)
@@ -27,8 +29,8 @@ This package provides an easy way to quickly set up [AdminLTE v2](https://adminl
 
 ## 1. Requirements
 
-- Laravel 6.0.x
-- PHP >= 7.2
+- Laravel 10.x, 11.x, or 12.x
+- PHP >= 8.2
 
 ## 2. Installation
 
@@ -65,7 +67,7 @@ This package provides an easy way to quickly set up [AdminLTE v2](https://adminl
     And then use this command to publish new assets
     
     ```
-    php artisan vendor:publish --provider="JeroenNoten\LaravelAdminLte\AdminLteServiceProvider" --tag=assets --force
+    php artisan vendor:publish --provider="Devop360Technologies\LaravelAdminLte\AdminLteServiceProvider" --tag=assets --force
     ```
    
 3. If you have [published](#8-customize-views) and modified the default master, page views or login views, you will need to update them too.
@@ -74,7 +76,7 @@ This package provides an easy way to quickly set up [AdminLTE v2](https://adminl
     - Make a copy of the views you modified.
     - Publish the views again, using
         ```
-       php artisan vendor:publish --provider="JeroenNoten\LaravelAdminLte\AdminLteServiceProvider" --tag=views
+       php artisan vendor:publish --provider="Devop360Technologies\LaravelAdminLte\AdminLteServiceProvider" --tag=views
         ```
    - Redo the modifications you did.
   
@@ -231,8 +233,8 @@ For example with Laratrust:
 
 namespace MyApp;
 
-use JeroenNoten\LaravelAdminLte\Menu\Builder;
-use JeroenNoten\LaravelAdminLte\Menu\Filters\FilterInterface;
+use Devop360Technologies\LaravelAdminLte\Menu\Builder;
+use Devop360Technologies\LaravelAdminLte\Menu\Filters\FilterInterface;
 use Laratrust;
 
 class MyMenuFilter implements FilterInterface
@@ -252,11 +254,11 @@ And then add to `config/adminlte.php`:
 
 ```php
 'filters' => [
-    JeroenNoten\LaravelAdminLte\Menu\Filters\ActiveFilter::class,
-    JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
-    JeroenNoten\LaravelAdminLte\Menu\Filters\SubmenuFilter::class,
-    JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
-    //JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class, Comment this line out
+    Devop360Technologies\LaravelAdminLte\Menu\Filters\ActiveFilter::class,
+    Devop360Technologies\LaravelAdminLte\Menu\Filters\HrefFilter::class,
+    Devop360Technologies\LaravelAdminLte\Menu\Filters\SubmenuFilter::class,
+    Devop360Technologies\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
+    //Devop360Technologies\LaravelAdminLte\Menu\Filters\GateFilter::class, Comment this line out
     MyApp\MyMenuFilter::class,
 ]
 ```
@@ -272,7 +274,7 @@ To configure the menu at runtime, register a handler or callback for the `MenuBu
 
 ```php
 use Illuminate\Contracts\Events\Dispatcher;
-use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
+use Devop360Technologies\LaravelAdminLte\Events\BuildingMenu;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -383,7 +385,7 @@ Just specifiy the language in `config/app.php`.
 If you need to modify the texts or add other languages, you can publish the language files:
 
 ```
-php artisan vendor:publish --provider="JeroenNoten\LaravelAdminLte\AdminLteServiceProvider" --tag=translations
+php artisan vendor:publish --provider="Devop360Technologies\LaravelAdminLte\AdminLteServiceProvider" --tag=translations
 ```
 
 Now, you can edit translations or add languages in `resources/lang/vendor/adminlte`.
@@ -441,7 +443,7 @@ To translate the menu headers, just use the `header` param. Example:
 If you need full control over the provided views, you can publish them:
 
 ```
-php artisan vendor:publish --provider="JeroenNoten\LaravelAdminLte\AdminLteServiceProvider" --tag=views
+php artisan vendor:publish --provider="Devop360Technologies\LaravelAdminLte\AdminLteServiceProvider" --tag=views
 ```
 
 Now, you can edit the views in `resources/views/vendor/adminlte`.

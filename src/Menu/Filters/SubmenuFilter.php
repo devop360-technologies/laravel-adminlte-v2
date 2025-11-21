@@ -1,9 +1,9 @@
 <?php
 
-namespace JeroenNoten\LaravelAdminLte\Menu\Filters;
+namespace Devop360Technologies\LaravelAdminLte\Menu\Filters;
 
-use JeroenNoten\LaravelAdminLte\Menu\Builder;
-use JeroenNoten\LaravelAdminLte\Menu\ActiveChecker;
+use Devop360Technologies\LaravelAdminLte\Menu\Builder;
+use Devop360Technologies\LaravelAdminLte\Menu\ActiveChecker;
 
 class SubmenuFilter implements FilterInterface
 {

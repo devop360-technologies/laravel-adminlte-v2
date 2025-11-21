@@ -1,6 +1,6 @@
 <?php
 
-namespace JeroenNoten\LaravelAdminLte\Menu;
+namespace Devop360Technologies\LaravelAdminLte\Menu;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;

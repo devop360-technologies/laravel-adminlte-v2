@@ -1,8 +1,8 @@
 <?php
 
-namespace JeroenNoten\LaravelAdminLte\Menu\Filters;
+namespace Devop360Technologies\LaravelAdminLte\Menu\Filters;
 
-use JeroenNoten\LaravelAdminLte\Menu\Builder;
+use Devop360Technologies\LaravelAdminLte\Menu\Builder;
 use Illuminate\Contracts\Routing\UrlGenerator;
 
 class HrefFilter implements FilterInterface

@@ -1,15 +1,15 @@
 <?php
 
-namespace JeroenNoten\LaravelAdminLte;
+namespace Devop360Technologies\LaravelAdminLte;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Container\Container;
-use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
+use Devop360Technologies\LaravelAdminLte\Events\BuildingMenu;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use JeroenNoten\LaravelAdminLte\Console\AdminLteInstallCommand;
-use JeroenNoten\LaravelAdminLte\Http\ViewComposers\AdminLteComposer;
+use Devop360Technologies\LaravelAdminLte\Console\AdminLteInstallCommand;
+use Devop360Technologies\LaravelAdminLte\Http\ViewComposers\AdminLteComposer;
 
 class AdminLteServiceProvider extends BaseServiceProvider
 {
@@ -103,7 +103,7 @@ class AdminLteServiceProvider extends BaseServiceProvider
     {
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) use ($config) {
             $menu = $config->get('adminlte.menu');
-            call_user_func_array([$event->menu, 'add'], $menu);
+            $event->menu->add(...$menu);
         });
     }
 }

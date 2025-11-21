@@ -220,13 +220,13 @@ return [
     */
 
     'filters' => [
-        JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\SearchFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\ActiveFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\SubmenuFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\LangFilter::class,
+        Devop360Technologies\LaravelAdminLte\Menu\Filters\HrefFilter::class,
+        Devop360Technologies\LaravelAdminLte\Menu\Filters\SearchFilter::class,
+        Devop360Technologies\LaravelAdminLte\Menu\Filters\ActiveFilter::class,
+        Devop360Technologies\LaravelAdminLte\Menu\Filters\SubmenuFilter::class,
+        Devop360Technologies\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
+        Devop360Technologies\LaravelAdminLte\Menu\Filters\GateFilter::class,
+        Devop360Technologies\LaravelAdminLte\Menu\Filters\LangFilter::class,
     ],
 
     /*
