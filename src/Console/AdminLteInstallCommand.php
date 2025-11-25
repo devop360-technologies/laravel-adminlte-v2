@@ -31,9 +31,10 @@ class AdminLteInstallCommand extends Command
         $this->info('Installing AdminLTE...');
 
         $this->exportAssets();
-        $this->exportBasicViews();
         $this->generateUiAuth();
+        $this->removeConflictingViews();
         $this->exportAuthViews();
+        $this->exportBasicViews();
         $this->exportRoutes();
         $this->exportConfig();
 
@@ -53,6 +54,26 @@ class AdminLteInstallCommand extends Command
         ]);
 
         $this->comment('Laravel UI authentication scaffolding generated successfully.');
+    }
+
+    /**
+     * Remove conflicting views created by Laravel UI.
+     *
+     * @return void
+     */
+    protected function removeConflictingViews()
+    {
+        $conflictingViews = [
+            $this->getViewPath('layouts/app.blade.php'),
+        ];
+
+        foreach ($conflictingViews as $view) {
+            if (file_exists($view)) {
+                unlink($view);
+            }
+        }
+
+        $this->comment('Conflicting Laravel UI views removed successfully.');
     }
 
     /**
