@@ -6,7 +6,9 @@
 [![StyleCI](https://styleci.io/repos/38200433/shield?branch=master)](https://styleci.io/repos/38200433)
 [![Total Downloads](https://img.shields.io/packagist/dt/jeroennoten/Laravel-AdminLTE.svg?style=flat-square)](https://packagist.org/packages/jeroennoten/Laravel-AdminLTE)
 
-This package provides an easy way to quickly set up [AdminLTE v2](https://adminlte.io) with Laravel 10, 11, or 12. It has no requirements and dependencies besides Laravel, so you can start building your admin panel immediately. The package just provides a Blade template that you can extend and advanced menu configuration possibilities. A replacement for the `make:auth` Artisan command that uses AdminLTE styled views instead of the default Laravel ones is also included.
+This package provides an easy way to quickly set up [AdminLTE v2](https://adminlte.io) with Laravel 10, 11, or 12. The package provides Blade templates that you can extend and advanced menu configuration possibilities. A replacement for the `make:auth` Artisan command that uses AdminLTE styled views instead of the default Laravel ones is also included.
+
+**Dependencies**: Laravel Framework and Laravel UI (for authentication features).
 
 > **Note**: This version has been updated to support Laravel 10+ and PHP 8.2+. For older Laravel versions, please use the original package versions.
 
@@ -30,6 +32,7 @@ This package provides an easy way to quickly set up [AdminLTE v2](https://adminl
 ## 1. Requirements
 
 - Laravel 10.x, 11.x, or 12.x
+- Laravel UI 4.x (for authentication features)
 - PHP >= 8.2
 
 ## 2. Installation
@@ -37,27 +40,21 @@ This package provides an easy way to quickly set up [AdminLTE v2](https://adminl
 1. Require the package using composer:
 
     ```
-    composer require jeroennoten/laravel-adminlte
+    composer require devop360-technologies/laravel-adminlte-v2
     ```
 
-2. Install the package using the command (For fresh laravel installations):
+2. Install AdminLTE:
 
     ```
     php artisan adminlte:install
     ```
-   
-> You can use --basic to avoid authentication scaffolding installation
->
-> You can use --force to overwrite any file
->
-> You can also use --interactive to be guided through the process and choose what you want to install
 
 ## 3. Updating
 
 1. To update this package, first update the composer package:
 
     ```
-    composer update jeroennoten/laravel-adminlte
+    composer update devop360-technologies/laravel-adminlte-v2
     ```
 
 2. Then, we need to update the assets

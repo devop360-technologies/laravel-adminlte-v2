@@ -6,12 +6,9 @@ use Illuminate\Console\Command;
 
 class AdminLteInstallCommand extends Command
 {
-    protected $signature = 'adminlte:install '.
-        '{--basic : Only publishes the assets and a basic page example}'.
-        '{--force : Overwrite existing views by default}'.
-        '{--interactive : The installation will guide you through the process}';
+    protected $signature = 'adminlte:install';
 
-    protected $description = 'Install all the required files for AdminLTE and the authentication views and routes';
+    protected $description = 'Install AdminLTE with authentication scaffolding and all required files';
 
     protected $authViews = [
         'auth/login.blade.php'           => '@extends(\'adminlte::login\')',
@@ -31,17 +28,31 @@ class AdminLteInstallCommand extends Command
      */
     public function handle()
     {
+        $this->info('Installing AdminLTE...');
+
         $this->exportAssets();
-
         $this->exportBasicViews();
-
+        $this->generateUiAuth();
         $this->exportAuthViews();
-
         $this->exportRoutes();
-
         $this->exportConfig();
 
-        $this->info(($this->option('basic') ? 'Basic' : 'Full').' AdminLTE Installation complete.');
+        $this->info('AdminLTE Installation completed successfully!');
+    }
+
+    /**
+     * Generate Laravel UI authentication scaffolding.
+     *
+     * @return void
+     */
+    protected function generateUiAuth()
+    {
+        $this->call('ui', [
+            'type' => 'bootstrap',
+            '--auth' => true,
+        ]);
+
+        $this->comment('Laravel UI authentication scaffolding generated successfully.');
     }
 
     /**
@@ -51,18 +62,11 @@ class AdminLteInstallCommand extends Command
      */
     protected function exportAuthViews()
     {
-        if (! $this->option('basic')) {
-            if ($this->option('interactive')) {
-                if (! $this->confirm('Install AdminLTE authentication views?')) {
-                    return;
-                }
-            }
-            $this->ensureDirectoriesExist($this->getViewPath('auth/passwords'));
-            foreach ($this->authViews as $file => $content) {
-                file_put_contents($this->getViewPath($file), $content);
-            }
-            $this->comment('Authentication views installed successfully.');
+        $this->ensureDirectoriesExist($this->getViewPath('auth/passwords'));
+        foreach ($this->authViews as $file => $content) {
+            file_put_contents($this->getViewPath($file), $content);
         }
+        $this->comment('Authentication views installed successfully.');
     }
 
     /**
@@ -72,20 +76,10 @@ class AdminLteInstallCommand extends Command
      */
     protected function exportBasicViews()
     {
-        if ($this->option('interactive')) {
-            if (! $this->confirm('Install AdminLTE basic views?')) {
-                return;
-            }
-        }
         foreach ($this->basicViews as $key => $value) {
-            if (file_exists($view = $this->getViewPath($value)) && ! $this->option('force')) {
-                if (! $this->confirm("The [{$value}] view already exists. Do you want to replace it?")) {
-                    continue;
-                }
-            }
             copy(
                 __DIR__.'/stubs/'.$key,
-                $view
+                $this->getViewPath($value)
             );
         }
         $this->comment('Basic views installed successfully.');
@@ -98,19 +92,12 @@ class AdminLteInstallCommand extends Command
      */
     protected function exportRoutes()
     {
-        if (! $this->option('basic')) {
-            if ($this->option('interactive')) {
-                if (! $this->confirm('Install AdminLTE authentication routes?')) {
-                    return;
-                }
-            }
-            file_put_contents(
-                base_path('routes/web.php'),
-                file_get_contents(__DIR__.'/stubs/routes.stub'),
-                FILE_APPEND
-            );
-            $this->comment('Authentication routes installed successfully.');
-        }
+        file_put_contents(
+            base_path('routes/web.php'),
+            file_get_contents(__DIR__.'/stubs/routes.stub'),
+            FILE_APPEND
+        );
+        $this->comment('Authentication routes installed successfully.');
     }
 
     /**
@@ -118,11 +105,6 @@ class AdminLteInstallCommand extends Command
      */
     protected function exportAssets()
     {
-        if ($this->option('interactive')) {
-            if (! $this->confirm('Install the package assets?')) {
-                return;
-            }
-        }
         $this->directoryCopy(__DIR__.'/../../resources/assets/', public_path(), true);
         $this->comment('Assets Installation complete.');
     }
@@ -132,16 +114,6 @@ class AdminLteInstallCommand extends Command
      */
     protected function exportConfig()
     {
-        if ($this->option('interactive')) {
-            if (! $this->confirm('Install the package config file?')) {
-                return;
-            }
-        }
-        if (file_exists(config_path('adminlte.php')) && ! $this->option('force')) {
-            if (! $this->confirm('The AdminLTE configuration file already exists. Do you want to replace it?')) {
-                return;
-            }
-        }
         copy(
             __DIR__.'/../../config/adminlte.php',
             config_path('adminlte.php')
@@ -194,11 +166,6 @@ class AdminLteInstallCommand extends Command
                 if (is_dir($source_directory.'/'.$file) && $recursive) {
                     $this->directoryCopy($source_directory.'/'.$file, $destination_directory.'/'.$file, true);
                 } else {
-                    if (file_exists($destination_directory.'/'.$file) && ! $this->option('force')) {
-                        if (! $this->confirm("The [{$file}] file already exists. Do you want to replace it?")) {
-                            continue;
-                        }
-                    }
                     copy($source_directory.'/'.$file, $destination_directory.'/'.$file);
                 }
             }
